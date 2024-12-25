@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/jobportal
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:
+    driver: local
+
