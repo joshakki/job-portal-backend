@@ -18,6 +18,7 @@ const jobSchema = new mongoose.Schema({
   description: String,
   companyId: String,
   location: String,
+  workMode: String,
   skillsRequired: [String],
   salaryRange: {
     min: Number,
@@ -31,9 +32,18 @@ const Job = mongoose.model('Job', jobSchema);
 
 // Create a new job
 app.post('/jobs', async (req, res) => {
+  try{
   const job = new Job(req.body);
   await job.save();
   res.status(201).send(job);
+  }
+  catch(error){
+    res.status(500).json({
+      status: 'error',
+      message: 'Job creation failed',
+      error: error.message
+    });
+  }
 });
 
 // Get all jobs
