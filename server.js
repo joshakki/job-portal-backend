@@ -23,6 +23,9 @@ const jobSchema = new mongoose.Schema({
     location: String,
     workMode: String,
     skillsRequired: [String],
+    responsibilities: [String],
+    benefits: [String],
+    qualifications: [String],
     salaryRange: {
         min: Number,
         max: Number
